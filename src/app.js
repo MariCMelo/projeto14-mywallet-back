@@ -217,6 +217,21 @@ function calculateBalance(transactions) {
   return balance;
 }
 
+
+//rota temporaria para pegar usuário
+
+app.get("/getUser", async (req, res) => {
+  const { email} = req.body;
+
+  try {
+    const usuario = await db.collection("user").findOne({ email: email})
+
+    res.send(usuario)
+} catch (err) {
+    res.status(500).send(err.message)
+}
+})
+
 // Start the server
 const PORT = 5000;
 app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
